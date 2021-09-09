@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import NavigationContext from "../context/NavigationContext";
 import SearchForm from "../components/SearchForm";
+import MainWrapper from "../components/MainWrapper";
 
 const ProductsPage = ({ location, history, products }) => {
   const { setCurrentPage } = useContext(NavigationContext);
@@ -33,7 +34,7 @@ const ProductsPage = ({ location, history, products }) => {
   };
 
   return (
-    <main className="h-screen">
+    <MainWrapper>
       <SearchForm
         placeholder="Search product"
         setSearchTerm={searchHandler}
@@ -60,7 +61,7 @@ const ProductsPage = ({ location, history, products }) => {
       >
         <IoAddOutline className="text-4xl text-white" />
       </button>
-    </main>
+    </MainWrapper>
   );
 };
 

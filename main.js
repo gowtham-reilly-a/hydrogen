@@ -4,9 +4,6 @@ let mainWindow;
 
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
-    width: 850,
-    height: 600,
-    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

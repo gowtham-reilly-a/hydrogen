@@ -10,12 +10,12 @@ export default function IconLink({ icon, title, path }) {
   return (
     <Link
       to={path}
-      className={`flex flex-col items-center ${
-        currentPage === path ? "text-blue-500" : ""
+      className={`flex gap-3 items-center ${
+        currentPage === path ? "text-white" : ""
       }`}
     >
       {icon}
-      <p className="text-xs">{title}</p>
+      <p className="text-lg">{title}</p>
     </Link>
   );
 }

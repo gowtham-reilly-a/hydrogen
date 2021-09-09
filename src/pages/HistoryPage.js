@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 
 import NavigationContext from "../context/NavigationContext";
-
+import MainWrapper from "../components/MainWrapper";
 import SearchForm from "../components/SearchForm";
 
 export default function HistoryPage({ location }) {
@@ -12,8 +12,8 @@ export default function HistoryPage({ location }) {
   }, [location, setCurrentPage]);
 
   return (
-    <main className="h-screen">
+    <MainWrapper>
       <SearchForm placeholder="Search order number" />
-    </main>
+    </MainWrapper>
   );
 }

@@ -8,6 +8,8 @@ export const Provider = ({ children }) => {
   const [topbarNavigation, setTopbarNavigation] = useState(false);
   const [topbarTitle, setTopbarTitle] = useState(null);
   const [tabNavigationVisiblity, setTabNavigationVisiblity] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalType, setModalType] = useState(null);
 
   return (
     <Context.Provider
@@ -22,6 +24,10 @@ export const Provider = ({ children }) => {
         setTopbarTitle,
         tabNavigationVisiblity,
         setTabNavigationVisiblity,
+        isModalVisible,
+        setIsModalVisible,
+        modalType,
+        setModalType,
       }}
     >
       {children}
