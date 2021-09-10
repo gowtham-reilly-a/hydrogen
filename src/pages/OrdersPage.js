@@ -27,9 +27,9 @@ class OrdersPage extends React.Component {
   render() {
     if (this.props.orders.length === 0)
       return (
-        <div className="h-full flex justify-center items-center gap-2 bg-gray-800">
+        <div className="h-full flex justify-center items-center gap-2 bg-gradient-to-r from-indigo-300 to-indigo-300">
           <FcInfo size="2rem" />
-          <p className="text-white text-md">Your orders will appear here.</p>
+          <p className="text-black text-md">Your orders will appear here.</p>
         </div>
       );
 
@@ -48,7 +48,7 @@ class OrdersPage extends React.Component {
               <li key={order.id}>
                 <button
                   type="button"
-                  className="flex flex-col gap-2 w-full bg-white bg-opacity-20 blur-xl text-white p-3 rounded-lg"
+                  className="flex flex-col gap-2 w-full bg-white bg-opacity-40 blur-xl text-black p-3 rounded-lg"
                   onClick={() => this.onClickHandler(order.id)}
                 >
                   <h2>Order number: {order.orderNumber}</h2>

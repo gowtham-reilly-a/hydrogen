@@ -59,9 +59,7 @@ const Cart = ({
     return (
       <div className="h-full flex justify-center items-center gap-2">
         <FcInfo size="2rem" />
-        <p className="text-white text-md">
-          Search or scan barcode to add products here.
-        </p>
+        <p className="text-md">Search or scan barcode to add products here.</p>
       </div>
     );
 
@@ -72,12 +70,10 @@ const Cart = ({
           return (
             <li
               key={product.id}
-              className="flex flex-col gap-2 justify-center bg-white bg-opacity-20 blur-xl rounded-md p-3"
+              className="flex flex-col gap-2 justify-center bg-white bg-opacity-40 blur-xl rounded-md p-3"
             >
               <div className="flex justify-between">
-                <h2 className="text-lg font-semibold text-white">
-                  {product.name}
-                </h2>
+                <h2 className="text-lg font-semibold">{product.name}</h2>
                 <IoTrashOutline
                   title="Remove product"
                   className="text-2xl text-red-500 cursor-pointer"

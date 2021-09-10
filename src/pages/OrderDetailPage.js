@@ -48,7 +48,7 @@ class OrderDetailPage extends React.Component {
 
     return (
       <MainWrapper>
-        <ul className="h-full flex flex-col justify-center gap-2 py-3 px-6 text-white bg-white bg-opacity-20 blur-xl rounded-lg max-w-lg mx-auto">
+        <ul className="h-full flex flex-col justify-center gap-2 py-3 px-6 text-black bg-white bg-opacity-20 blur-xl rounded-lg max-w-lg mx-auto">
           {order.orderNumber &&
             this.makeListItem("Order Number", order.orderNumber)}
           {order.createdOn &&
@@ -67,7 +67,7 @@ class OrderDetailPage extends React.Component {
                 return (
                   <li
                     key={product.id}
-                    className="flex flex-col gap-2 justify-center bg-white bg-opacity-20 blur-xl rounded-md p-3"
+                    className="flex flex-col gap-2 justify-center bg-white bg-opacity-40 blur-xl rounded-md p-3"
                   >
                     <Link
                       to={`/products/show/${product.id}`}

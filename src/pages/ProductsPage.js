@@ -51,12 +51,12 @@ class ProductsPage extends React.Component {
           data={this.props.products}
           result="name"
         />
-        <div className="flex flex-col gap-3 px-3">
+        <div className="flex flex-col gap-3 px-3 max-w-2xl mx-auto">
           {products?.map((product) => (
             <Link
               to={`/products/show/${product.id}`}
               key={product.id}
-              className="flex flex-col gap-2 bg-white bg-opacity-20 text-white blur-xl rounded-md p-3"
+              className="flex flex-col gap-2 bg-white bg-opacity-40 text-black blur-xl rounded-md p-3"
             >
               <h2 className="text-xl font-bold">{product.name}</h2>
               <div className="flex gap-4">

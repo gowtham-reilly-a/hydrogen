@@ -6,7 +6,7 @@ import { VscHistory } from "react-icons/vsc";
 
 export default function SideDrawer() {
   return (
-    <aside className="sticky top-0 left-0 space-y-6 w-1/5 h-full text-gray-400 bg-gray-800 border-r border-black p-6">
+    <aside className="sticky top-0 left-0 space-y-6 w-1/5 h-full text-black bg-gradient-to-r from-indigo-300 to-indigo-300 border-r border-white p-6">
       <IconLink
         path="/"
         title="Bag"
