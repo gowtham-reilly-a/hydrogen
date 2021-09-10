@@ -4,7 +4,7 @@ import NavigationContext from "../context/NavigationContext";
 import SearchForm from "./SearchForm";
 import Modal from "./Modal";
 
-const LiveSearch = ({ data, onClickHandler, title, placeholder }) => {
+const LiveSearch = ({ data, onClickHandler, title, placeholder, result }) => {
   const { modalType } = useContext(NavigationContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -49,7 +49,7 @@ const LiveSearch = ({ data, onClickHandler, title, placeholder }) => {
                 type="button"
                 className="flex flex-col gap-0 pt-1 cursor-pointer w-full"
               >
-                <h2 className="text-lg">{item.name}</h2>
+                <h2 className="text-lg">{item[result]}</h2>
               </button>
             </li>
           ))}

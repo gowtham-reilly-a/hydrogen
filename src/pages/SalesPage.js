@@ -1,35 +1,66 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-
+import { addToCart } from "../actions";
 import MainWrapper from "../components/MainWrapper";
-import NavigationContext from "../context/NavigationContext";
 import LiveSearch from "../components/LiveSearch";
 import Cart from "../components/Cart";
+import NavigationContext from "../context/NavigationContext";
+import { IoSearchOutline, IoBarcodeOutline } from "react-icons/io5";
 
-function SalesPage({ location, products }) {
-  const [selectedProduct, setSelectedProduct] = useState(null);
+class SalesPage extends React.Component {
+  static contextType = NavigationContext;
 
-  const { setCurrentPage } = useContext(NavigationContext);
+  componentDidMount() {
+    this.context.setCurrentPage(this.props.location.pathname);
+    this.context.setHeaderOptions({
+      title: "Products bag",
+      menu: [
+        <IoSearchOutline
+          size="1.5rem"
+          title="Search products"
+          onClick={() => {
+            this.context.setIsModalVisible(true);
+            this.context.setModalType("search");
+          }}
+          className="cursor-pointer"
+        />,
+        <IoBarcodeOutline
+          size="1.5rem"
+          title="Scan barcode"
+          onClick={() => {
+            this.context.setIsModalVisible(true);
+            this.context.setModalType("barcode");
+          }}
+          className="cursor-pointer"
+        />,
+      ],
+    });
+  }
 
-  useEffect(() => {
-    setCurrentPage(location.pathname);
-  }, [location, setCurrentPage]);
+  onClickHandler = (productId) => {
+    const selectedProduct = this.props.products.find(
+      (product) => product.id === productId
+    );
 
-  const onClickHandler = (productId) => {
-    setSelectedProduct(products.find((product) => product.id === productId));
+    if (!selectedProduct) return null;
+
+    this.props.addToCart({ ...selectedProduct, quantity: 1 });
   };
 
-  return (
-    <MainWrapper>
-      <LiveSearch
-        title="Search products"
-        placeholder="Eg: name or barcode"
-        onClickHandler={onClickHandler}
-        data={products}
-      />
-      <Cart selectedProduct={selectedProduct} />
-    </MainWrapper>
-  );
+  render() {
+    return (
+      <MainWrapper>
+        <LiveSearch
+          title="Search products"
+          placeholder="Eg: name or barcode"
+          onClickHandler={this.onClickHandler}
+          data={this.props.products}
+          result="name"
+        />
+        <Cart />
+      </MainWrapper>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
@@ -38,4 +69,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(SalesPage);
+export default connect(mapStateToProps, { addToCart })(SalesPage);

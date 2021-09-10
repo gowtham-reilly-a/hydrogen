@@ -1,7 +1,9 @@
 const cartReducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      return [action.payload, ...state];
+      if (state.some((product) => product.id === action.payload.id))
+        return state;
+      else return [action.payload, ...state];
     case "REMOVE_FROM_CART":
       return state.filter((product) => product.id !== action.payload);
     case "UPDATE_CART":

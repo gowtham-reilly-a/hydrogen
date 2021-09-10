@@ -3,86 +3,109 @@ import { connect } from "react-redux";
 import MainWrapper from "../components/MainWrapper";
 import BigButton from "../components/BigButton";
 import { clearCart, createOrder } from "../actions";
-import history from "../history";
 import { v4 as uuidv4 } from "uuid";
+import NavigationContext from "../context/NavigationContext";
+import { IoArrowBackOutline } from "react-icons/io5";
 
-const CheckoutPage = ({ cart, clearCart, createOrder }) => {
-  const getTotalPrice = (cart) => {
-    return cart
+class CheckoutPage extends React.Component {
+  static contextType = NavigationContext;
+
+  componentDidMount() {
+    this.context.setHeaderOptions({
+      title: "Checkout",
+      menu: this.props.cart.length > 0 && [
+        <IoArrowBackOutline
+          size="1.5rem"
+          title="Go back"
+          onClick={() => {
+            this.props.history.goBack();
+          }}
+          className="cursor-pointer"
+        />,
+      ],
+    });
+  }
+
+  getTotalPrice = () => {
+    return this.props.cart
       .map((item) => item.price * item.quantity)
       .reduce((sum, cur) => sum + cur, 0);
   };
 
-  const generateOrder = (method) => {
+  generateOrder = (method) => {
     const dateString = new Date().toLocaleDateString().split("/").join("");
     const timeString = new Date().toLocaleTimeString().split(":").join("");
 
     const orderNumber = `${dateString}${timeString}`;
 
-    createOrder({
+    this.props.createOrder({
       id: uuidv4(),
       orderNumber,
       createdOn: new Date().toISOString(),
-      total: getTotalPrice(cart),
+      total: this.getTotalPrice(this.props.cart),
       paymentMethod: method,
-      products: [...cart],
+      products: [...this.props.cart],
     });
 
-    clearCart();
+    this.props.clearCart();
 
-    history.push(`/receipt/${orderNumber}`);
+    this.props.history.push(`/receipt/${orderNumber}`);
   };
 
-  return (
-    <MainWrapper>
-      <div className="max-w-sm h-full mx-auto rounded-lg flex flex-col justify-evenly">
-        <h1 className="text-4xl font-bold text-white">
-          To pay : &#8377; {getTotalPrice(cart)}
-        </h1>
-        <ul className="space-y-6">
-          <li>
-            <BigButton
-              onClick={() => {
-                generateOrder("cash");
-              }}
-            >
-              Cash payment
-            </BigButton>
-          </li>
-          <li>
-            <BigButton
-              onClick={() => {
-                generateOrder("card");
-              }}
-            >
-              Card payment
-            </BigButton>
-          </li>
-          <li>
-            <BigButton
-              onClick={() => {
-                generateOrder("upi");
-              }}
-            >
-              UPI payment
-            </BigButton>
-          </li>
-          <li>
-            <BigButton
-              className="bg-red-500 hover:bg-red-700"
-              onClick={() => {
-                clearCart();
-                history.push("/");
-              }}
-            >
-              Cancel payment
-            </BigButton>
-          </li>
-        </ul>
-      </div>
-    </MainWrapper>
-  );
-};
+  render() {
+    if (this.props.cart.length === 0) return null;
+
+    return (
+      <MainWrapper>
+        <div className="max-w-sm h-full mx-auto rounded-lg flex flex-col justify-evenly">
+          <h1 className="text-4xl font-bold text-white">
+            To pay : &#8377; {this.getTotalPrice()}
+          </h1>
+          <ul className="space-y-6">
+            <li>
+              <BigButton
+                onClick={() => {
+                  this.generateOrder("cash");
+                }}
+              >
+                Cash payment
+              </BigButton>
+            </li>
+            <li>
+              <BigButton
+                onClick={() => {
+                  this.generateOrder("card");
+                }}
+              >
+                Card payment
+              </BigButton>
+            </li>
+            <li>
+              <BigButton
+                onClick={() => {
+                  this.generateOrder("upi");
+                }}
+              >
+                UPI payment
+              </BigButton>
+            </li>
+            <li>
+              <BigButton
+                className="bg-red-500 hover:bg-red-700"
+                onClick={() => {
+                  this.props.clearCart();
+                  this.props.history.push("/");
+                }}
+              >
+                Cancel payment
+              </BigButton>
+            </li>
+          </ul>
+        </div>
+      </MainWrapper>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return {

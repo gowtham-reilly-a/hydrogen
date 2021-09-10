@@ -1,69 +1,77 @@
-import React, { useEffect, useContext, useState } from "react";
-
+import React from "react";
 import { connect } from "react-redux";
-import { IoAddOutline } from "react-icons/io5";
+import { IoCreateOutline, IoSearchOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-
 import NavigationContext from "../context/NavigationContext";
-import SearchForm from "../components/SearchForm";
 import MainWrapper from "../components/MainWrapper";
+import LiveSearch from "../components/LiveSearch";
 
-const ProductsPage = ({ location, history, products }) => {
-  const { setCurrentPage } = useContext(NavigationContext);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState(products);
+class ProductsPage extends React.Component {
+  static contextType = NavigationContext;
 
-  useEffect(() => {
-    setCurrentPage(location.pathname);
-    setFilteredProducts(products);
-  }, [location, setCurrentPage, products]);
+  componentDidMount() {
+    this.context.setCurrentPage(this.props.location.pathname);
+    this.context.setHeaderOptions({
+      title: "Products",
+      menu: [
+        <IoSearchOutline
+          size="1.5rem"
+          title="Search products"
+          onClick={() => {
+            this.context.setIsModalVisible(true);
+            this.context.setModalType("search");
+          }}
+          className="cursor-pointer"
+        />,
+        <IoCreateOutline
+          size="1.5rem"
+          title="Create product"
+          className="cursor-pointer"
+          onClick={() => this.props.history.push("/products/create")}
+        />,
+      ],
+    });
+  }
 
-  const searchHandler = (term) => {
-    setSearchTerm(term);
-
-    if (!term) return setFilteredProducts(products);
-
-    setFilteredProducts(
-      products.filter((product) => {
-        return Object.values(product)
-          .join(" ")
-          .toLowerCase()
-          .includes(term.toLowerCase());
-      })
-    );
+  onClickHandler = (productId) => {
+    this.props.history.push(`/products/show/${productId}`);
   };
 
-  return (
-    <MainWrapper>
-      <SearchForm
-        placeholder="Search product"
-        setSearchTerm={searchHandler}
-        searchTerm={searchTerm}
-      />
+  render() {
+    const products = this.props.products;
 
-      <div className="flex flex-col gap-3 p-3">
-        {filteredProducts?.map((product) => (
-          <Link
-            to={`/products/show/${product.id}`}
-            key={product.id}
-            className="flex flex-col gap-2 bg-gray-200 rounded-md p-3"
-          >
-            <h2 className="text-xl font-bold">{product.name}</h2>
-            <p>Stock: {product.stock || "Not set"}</p>
-          </Link>
-        ))}
-      </div>
+    if (products.length === 0) return null;
 
-      <button
-        className="sticky bottom-24 bg-blue-500 rounded-full p-1"
-        onClick={() => history.push("/products/create")}
-        type="button"
-      >
-        <IoAddOutline className="text-4xl text-white" />
-      </button>
-    </MainWrapper>
-  );
-};
+    return (
+      <MainWrapper>
+        <LiveSearch
+          title="Search products"
+          placeholder="Eg: name or barcode"
+          onClickHandler={this.onClickHandler}
+          data={this.props.products}
+          result="name"
+        />
+        <div className="flex flex-col gap-3 px-3">
+          {products?.map((product) => (
+            <Link
+              to={`/products/show/${product.id}`}
+              key={product.id}
+              className="flex flex-col gap-2 bg-white bg-opacity-20 text-white blur-xl rounded-md p-3"
+            >
+              <h2 className="text-xl font-bold">{product.name}</h2>
+              <div className="flex gap-4">
+                {product.price && <p>Amount: {product.price}</p>}
+                {product.stock && <p>Stock: {product.stock}</p>}
+                {product.brand && <p>Brand: {product.brand}</p>}
+                {product.supplier && <p>Supplier: {product.supplier}</p>}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </MainWrapper>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return {

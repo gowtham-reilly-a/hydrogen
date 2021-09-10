@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-
 import FormControl from "./form/FormControl";
 import CreatableSelect from "./form/CreatableSelect";
 import { connect } from "react-redux";
+import BigButton from "./BigButton";
 
 const initialValues = {
   name: "",
@@ -46,7 +46,7 @@ function ProductForm({ brands, suppliers, onSubmit, product, title }) {
     >
       {(formik) => {
         return (
-          <Form className="flex flex-col gap-6">
+          <Form className="flex flex-col gap-6 bg-white bg-opacity-60 blur-xl rounded-lg p-4">
             <FormControl
               control="input"
               name="barcode"
@@ -104,13 +104,10 @@ function ProductForm({ brands, suppliers, onSubmit, product, title }) {
               placeholder="Stock keeping unit"
             />
 
-            <button
+            <BigButton
               type="submit"
               disabled={!formik.isValid}
-              className="bg-blue-500 text-white px-3 py-1 rounded-md"
-            >
-              {`${title} product`}
-            </button>
+            >{`${title} product`}</BigButton>
           </Form>
         );
       }}

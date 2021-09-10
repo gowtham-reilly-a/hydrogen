@@ -1,83 +1,77 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-
 import { updateProduct } from "../actions";
-import useTopbarNavigation from "../hooks/useTopbarNavigation";
+import NavigationContext from "../context/NavigationContext";
+import { IoArrowBackOutline } from "react-icons/io5";
+import { VscEdit } from "react-icons/vsc";
+import MainWrapper from "../components/MainWrapper";
 
-const ProductDetailPage = ({ product, updateProduct }) => {
-  useTopbarNavigation(product.name);
+class ProductDetailPage extends React.Component {
+  static contextType = NavigationContext;
 
-  const [updateStockVisiblity, setUpdateStockVisiblity] = useState(false);
-  const [stock, setStock] = useState("");
+  componentDidMount() {
+    this.context.setHeaderOptions({
+      title: this.props.product && `${this.props.product.name}`,
+      menu: this.props.product && [
+        <IoArrowBackOutline
+          size="1.5rem"
+          title="Go back"
+          onClick={() => {
+            this.props.history.goBack();
+          }}
+          className="cursor-pointer"
+        />,
+        <VscEdit
+          size="1.5rem"
+          title="Edit product"
+          onClick={() => {
+            this.props.history.push(`/products/edit/${this.props.product.id}`);
+          }}
+          className="cursor-pointer"
+        />,
+      ],
+    });
+  }
 
-  if (!product) return null;
+  makeListItem = (label, value) => {
+    return (
+      <li className="flex justify-between border text-white border-blue-500 bg-blue-500 bg-opacity-50 blur-xl p-2">
+        <span className="font-bold">{label}:</span>
+        <span>{value}</span>
+      </li>
+    );
+  };
 
-  return (
-    <main>
-      <div className="flex flex-col gap-3 bg-gray-200 p-3 h-screen">
-        <h1 className="text-2xl font-bold">{product.name}</h1>
-        <p>Price: {product.price}</p>
-        <p>Supplier: {product.supplier}</p>
-        <p>Brand: {product.brand}</p>
-        <p>SKU: {product.sku}</p>
-        <p>Stock: {product.stock}</p>
-        <p>Barcode: {product.barcode}</p>
-      </div>
+  render() {
+    const product = this.props.product;
 
-      <div className="sticky bottom-0 left-0 w-full">
-        {updateStockVisiblity && (
-          <div className="flex justify-between items-center gap-6 bg-gray-100 h-12 px-3 mt-3">
-            <input
-              autoFocus
-              type="number"
-              min="1"
-              value={stock}
-              onChange={(e) => setStock(e.target.value)}
-              name="stock"
-              id="stock"
-              placeholder="Stock"
-              className="h-full w-full border-none outline-none form-text bg-gray-100"
-            />
-            <button
-              className="text-blue-500"
-              type="button"
-              onClick={() => {
-                if (stock > 0)
-                  updateProduct({ ...product, stock: product.stock + +stock });
-                setStock("");
-                setUpdateStockVisiblity(false);
-              }}
-            >
-              Add
-            </button>
-            <button
-              className="text-red-500"
-              type="button"
-              onClick={() => {
-                if (product.stock > 1 && stock > 0)
-                  updateProduct({ ...product, stock: product.stock - +stock });
-                setStock("");
-                setUpdateStockVisiblity(false);
-              }}
-            >
-              Remove
-            </button>
-          </div>
-        )}
+    if (!product) return null;
 
-        {!updateStockVisiblity && (
-          <div className="flex justify-around bg-blue-500 text-white font-bold items-center h-14 gap-1">
-            <button type="button" onClick={() => setUpdateStockVisiblity(true)}>
-              Update stock
-            </button>
-            <Link to={`/products/edit/${product.id}`}>Edit product</Link>
-          </div>
-        )}
-      </div>
-    </main>
-  );
-};
+    return (
+      <MainWrapper>
+        <ul className="h-full flex flex-col justify-center gap-2 py-3 px-6 text-white bg-white bg-opacity-20 blur-xl rounded-lg max-w-lg mx-auto">
+          {product.createdOn &&
+            this.makeListItem(
+              "Created on",
+              new Date(product.createdOn).toLocaleString()
+            )}
+          {product.updatedOn &&
+            this.makeListItem(
+              "Updated on",
+              new Date(product.updatedOn).toLocaleString()
+            )}
+          {product.name && this.makeListItem("Name", product.name)}
+          {product.price && this.makeListItem("Amount", product.price)}
+          {product.brand && this.makeListItem("Brand", product.brand)}
+          {product.supplier && this.makeListItem("Supplier", product.supplier)}
+          {product.stock && this.makeListItem("Stock", product.stock)}
+          {product.sku && this.makeListItem("SKU", product.sku)}
+          {product.barcode && this.makeListItem("Barcode", product.barcode)}
+        </ul>
+      </MainWrapper>
+    );
+  }
+}
 
 const mapStateToProps = (state, ownProps) => {
   return {
