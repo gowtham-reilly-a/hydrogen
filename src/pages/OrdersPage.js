@@ -5,7 +5,7 @@ import MainWrapper from "../components/MainWrapper";
 import LiveSearch from "../components/LiveSearch";
 import { connect } from "react-redux";
 import { FcInfo } from "react-icons/fc";
-import MenuSearch from "../components/MenuSearch";
+import { IoSearchOutline } from "react-icons/io5";
 
 class OrdersPage extends React.Component {
   static contextType = NavigationContext;
@@ -14,7 +14,17 @@ class OrdersPage extends React.Component {
     this.context.setCurrentPage(this.props.location.pathname);
     this.context.setHeaderOptions({
       title: "Orders",
-      menu: [<MenuSearch />],
+      menu: this.props.orders.length > 0 && [
+        <IoSearchOutline
+          size="1.5rem"
+          title="Search products"
+          onClick={() => {
+            this.context.setIsModalVisible(true);
+            this.context.setModalType("search");
+          }}
+          className="cursor-pointer"
+        />,
+      ],
     });
   }
 
@@ -27,9 +37,11 @@ class OrdersPage extends React.Component {
   render() {
     if (this.props.orders.length === 0)
       return (
-        <div className="h-full flex justify-center items-center gap-2 bg-gradient-to-r from-indigo-300 to-indigo-300">
+        <div className="h-full flex justify-center items-center gap-2 bg-skin-base">
           <FcInfo size="2rem" />
-          <p className="text-black text-md">Your orders will appear here.</p>
+          <p className="text-skin-base text-md">
+            Your orders will appear here.
+          </p>
         </div>
       );
 
@@ -48,7 +60,7 @@ class OrdersPage extends React.Component {
               <li key={order.id}>
                 <button
                   type="button"
-                  className="flex flex-col gap-2 w-full bg-white bg-opacity-40 blur-xl text-black p-3 rounded-lg"
+                  className="flex flex-col gap-2 w-full text-skin-base bg-skin-highlight bg-opacity-20 blur-xl p-3 rounded-lg"
                   onClick={() => this.onClickHandler(order.id)}
                 >
                   <h2>Order number: {order.orderNumber}</h2>

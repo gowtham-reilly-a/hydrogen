@@ -57,7 +57,7 @@ const Cart = ({
 
   if (cart.length === 0)
     return (
-      <div className="h-full flex justify-center items-center gap-2">
+      <div className="h-full flex justify-center items-center gap-2 text-skin-base">
         <FcInfo size="2rem" />
         <p className="text-md">Search or scan barcode to add products here.</p>
       </div>
@@ -70,13 +70,13 @@ const Cart = ({
           return (
             <li
               key={product.id}
-              className="flex flex-col gap-2 justify-center bg-white bg-opacity-40 blur-xl rounded-md p-3"
+              className="flex flex-col gap-2 justify-center text-skin-base bg-skin-highlight bg-opacity-20 blur-xl rounded-md p-3"
             >
               <div className="flex justify-between">
                 <h2 className="text-lg font-semibold">{product.name}</h2>
                 <IoTrashOutline
                   title="Remove product"
-                  className="text-2xl text-red-500 cursor-pointer"
+                  className="text-2xl text-skin-negative cursor-pointer"
                   onClick={() => {
                     removeFromCart(product.id);
                   }}

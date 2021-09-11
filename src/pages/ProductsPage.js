@@ -56,7 +56,7 @@ class ProductsPage extends React.Component {
             <Link
               to={`/products/show/${product.id}`}
               key={product.id}
-              className="flex flex-col gap-2 bg-white bg-opacity-40 text-black blur-xl rounded-md p-3"
+              className="flex flex-col gap-2 text-skin-base bg-skin-highlight bg-opacity-20 blur-xl rounded-md p-3"
             >
               <h2 className="text-xl font-bold">{product.name}</h2>
               <div className="flex gap-4">

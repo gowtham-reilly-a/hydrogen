@@ -4,8 +4,8 @@ const Button = ({ className: classes, children, ...rest }) => {
   return (
     <button
       className={`${
-        classes || "text-blue-500 hover:text-blue-600"
-      }  font-bold text-lg transition-all`}
+        classes || "text-skin-accent hover:text-skin-accent-muted"
+      }  font-semibold transition-all`}
       {...rest}
     >
       {children}

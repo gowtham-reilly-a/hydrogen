@@ -58,7 +58,7 @@ class CheckoutPage extends React.Component {
     return (
       <MainWrapper>
         <div className="max-w-sm h-full mx-auto rounded-lg flex flex-col justify-evenly">
-          <h1 className="text-4xl font-bold text-white">
+          <h1 className="text-4xl font-bold text-skin-base">
             To pay : &#8377; {this.getTotalPrice()}
           </h1>
           <ul className="space-y-6">
@@ -91,7 +91,7 @@ class CheckoutPage extends React.Component {
             </li>
             <li>
               <BigButton
-                className="bg-red-500 hover:bg-red-700"
+                className="bg-skin-negative hover:bg-skin-negative-muted"
                 onClick={() => {
                   this.props.clearCart();
                   this.props.history.push("/");

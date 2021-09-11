@@ -7,6 +7,7 @@ export const Provider = ({ children }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalType, setModalType] = useState(null);
   const [headerOptions, setHeaderOptions] = useState({});
+  const [theme, setTheme] = useState("light");
 
   return (
     <Context.Provider
@@ -19,6 +20,8 @@ export const Provider = ({ children }) => {
         setModalType,
         headerOptions,
         setHeaderOptions,
+        theme,
+        setTheme,
       }}
     >
       {children}

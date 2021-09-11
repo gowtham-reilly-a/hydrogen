@@ -32,7 +32,7 @@ class ReceiptPage extends React.Component {
     return (
       <MainWrapper>
         <div className="max-w-sm h-full mx-auto rounded-lg flex flex-col justify-evenly">
-          <h1 className="text-4xl font-bold text-white">
+          <h1 className="text-4xl font-bold text-skin-base">
             Order number : {order.orderNumber}
           </h1>
           <ul className="space-y-6">
@@ -45,7 +45,7 @@ class ReceiptPage extends React.Component {
             <li>
               <BigButton
                 onClick={() => this.props.history.push("/")}
-                className="bg-red-500 hover:bg-red-700"
+                className="bg-skin-negative hover:bg-skin-negative-muted"
               >
                 No receipt
               </BigButton>

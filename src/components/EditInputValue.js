@@ -4,7 +4,6 @@ import * as Yup from "yup";
 
 import NavigationContext from "../context/NavigationContext";
 import Modal from "./Modal";
-import Button from "./Button";
 
 const EditInputValue = ({
   onSubmitHandler,
@@ -42,7 +41,9 @@ const EditInputValue = ({
           <ErrorMessage name={fieldName}>
             {(errMsg) => <p className="text-red-500">{errMsg}</p>}
           </ErrorMessage>
-          <Button type="submit">Update {fieldName}</Button>
+          <button type="submit" className="text-blue-500">
+            Update {fieldName}
+          </button>
         </Form>
       </Formik>
     </Modal>

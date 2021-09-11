@@ -35,7 +35,7 @@ const LiveSearch = ({ data, onClickHandler, title, placeholder, result }) => {
       ></SearchForm>
 
       {searchTerm && (
-        <ul className="w-full max-h-60 overflow-y-auto py-3 flex flex-col gap-1 bg-white p-3 divide-y">
+        <ul className="w-full max-h-60 overflow-y-auto py-3 flex flex-col gap-1 bg-white text-blue-500 p-3 divide-y">
           {filteredProducts?.map((item) => (
             <li
               key={item.id}

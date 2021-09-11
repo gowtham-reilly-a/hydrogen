@@ -11,11 +11,11 @@ const Input = ({ label, name, ...rest }) => {
       <Field
         name={name}
         id={name}
-        className="form-input w-full bg-gray-100 text-md h-full outline-none rounded-md p-3"
+        className="form-input w-full bg-skin-highlight bg-opacity-30 blur-lg text-md h-full outline-none rounded-md p-3"
         {...rest}
       />
       <ErrorMessage name={name}>
-        {(errMsg) => <div className="text-red-500">{errMsg}</div>}
+        {(errMsg) => <div className="text-skin-negative">{errMsg}</div>}
       </ErrorMessage>
     </div>
   );

@@ -38,8 +38,8 @@ class ProductCreatePage extends React.Component {
   render() {
     return (
       <MainWrapper>
-        <div className="h-full flex flex-col justify-evenly gap-2 p-2 bg-white bg-opacity-20 blur-xl rounded-lg max-w-lg mx-auto">
-          <h1 className="text-2xl font-bold text-white px-4">
+        <div className="h-full flex flex-col justify-evenly gap-2 p-2 bg-skin-highlight bg-opacity-20 blur-xl rounded-lg max-w-lg mx-auto">
+          <h1 className="text-2xl font-bold text-skin-base px-4">
             Create new product
           </h1>
           <div className="overflow-auto max-h-96 px-4">

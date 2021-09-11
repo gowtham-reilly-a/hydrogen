@@ -46,7 +46,7 @@ function ProductForm({ brands, suppliers, onSubmit, product, title }) {
     >
       {(formik) => {
         return (
-          <Form className="flex flex-col gap-6 bg-white bg-opacity-60 blur-xl rounded-lg p-4">
+          <Form className="flex flex-col gap-6 text-skin-base bg-skin-base bg-opacity-40 blur-xl rounded-lg p-4">
             <FormControl
               control="input"
               name="barcode"
@@ -86,6 +86,7 @@ function ProductForm({ brands, suppliers, onSubmit, product, title }) {
               formik={formik}
               placeholder="Search or create brand"
               options={brands}
+              className="text-skin-subdued"
             />
 
             <CreatableSelect
@@ -94,6 +95,7 @@ function ProductForm({ brands, suppliers, onSubmit, product, title }) {
               formik={formik}
               placeholder="Search or create supplier"
               options={suppliers}
+              className="text-skin-subdued"
             />
 
             <FormControl

@@ -16,14 +16,14 @@ const Modal = ({ children, title }) => {
         isModalVisible ? "flex" : "hidden"
       } justify-center items-center`}
     >
-      <div className="p-6 bg-white rounded-lg max-w-sm w-full relative flex flex-col gap-5 items-start">
+      <div className="p-6 bg-white rounded-lg max-w-sm w-full relative flex flex-col gap-5 items-start ">
         <button
           onClick={(e) => {
             setIsModalVisible(!isModalVisible);
             setModalType(null);
           }}
           type="button"
-          className="absolute -top-1 -right-1 rounded-full w-6 h-6 bg-red-500 flex justify-center items-center border border-gray-100"
+          className="absolute -top-1 -right-1 rounded-full w-6 h-6 bg-red-500 flex justify-center items-center border border-red-500"
         >
           <VscClose className="text-white" title="Close" />
         </button>

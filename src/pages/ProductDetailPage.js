@@ -35,7 +35,7 @@ class ProductDetailPage extends React.Component {
 
   makeListItem = (label, value) => {
     return (
-      <li className="flex justify-between border text-white border-blue-500 bg-blue-500 bg-opacity-50 blur-xl p-2">
+      <li className="flex justify-between border text-skin-base border-skin-accent bg-skin-accent bg-opacity-50 blur-xl p-2">
         <span className="font-bold">{label}:</span>
         <span>{value}</span>
       </li>
@@ -49,7 +49,7 @@ class ProductDetailPage extends React.Component {
 
     return (
       <MainWrapper>
-        <ul className="h-full flex flex-col justify-center gap-2 py-3 px-6 text-white bg-white bg-opacity-20 blur-xl rounded-lg max-w-lg mx-auto">
+        <ul className="h-full flex flex-col justify-center gap-2 py-3 px-6 text-skin-base bg-skin-highlight bg-opacity-20 blur-xl rounded-lg max-w-lg mx-auto">
           {product.createdOn &&
             this.makeListItem(
               "Created on",

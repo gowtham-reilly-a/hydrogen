@@ -11,7 +11,7 @@ export default function IconLink({ icon, title, path }) {
     <Link
       to={path}
       className={`flex gap-3 items-center ${
-        currentPage === path ? "text-white" : ""
+        currentPage === path ? "text-skin-accent" : ""
       }`}
     >
       {icon}
