@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import NavigationContext from "../context/NavigationContext";
 import { v4 as uuidv4 } from "uuid";
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
+import { connect } from "react-redux";
+import { changeTheme } from "../actions";
 
-export default function Header() {
-  const { headerOptions, theme, setTheme } = useContext(NavigationContext);
-
+const Header = ({ theme, changeTheme }) => {
+  const { headerOptions } = useContext(NavigationContext);
   const { title = null, menu = null } = headerOptions;
 
   return (
@@ -18,21 +19,21 @@ export default function Header() {
       </div>
       <h1 className="flex-1 text-center font-bold text-xl">{title}</h1>
       <div className="flex">
-        {theme === "light" ? (
-          <IoMoonOutline
-            title="Switch to dark theme"
-            size="1.5rem"
-            onClick={() => {
-              setTheme("dark");
-            }}
-            className="cursor-pointer"
-          />
-        ) : (
+        {theme === "dark" ? (
           <IoSunnyOutline
             title="Switch to light theme"
             size="1.5rem"
             onClick={() => {
-              setTheme("light");
+              changeTheme("light");
+            }}
+            className="cursor-pointer"
+          />
+        ) : (
+          <IoMoonOutline
+            title="Switch to dark theme"
+            size="1.5rem"
+            onClick={() => {
+              changeTheme("dark");
             }}
             className="cursor-pointer"
           />
@@ -40,4 +41,12 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    theme: state.preferences.theme,
+  };
+};
+
+export default connect(mapStateToProps, { changeTheme })(Header);

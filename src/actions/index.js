@@ -62,3 +62,10 @@ export const createOrder = (order) => {
     payload: order,
   };
 };
+
+export const changeTheme = (themeName) => {
+  return {
+    type: "CHANGE_THEME",
+    payload: themeName,
+  };
+};

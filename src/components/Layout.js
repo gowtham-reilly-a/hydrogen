@@ -1,14 +1,12 @@
-import React, { useContext } from "react";
-import NavigationContext from "../context/NavigationContext";
+import React from "react";
 
 import SideDrawer from "./SideDrawer";
 import Header from "./Header";
 import Footer from "./Footer";
 import Page from "./Page";
+import { connect } from "react-redux";
 
-const Layout = () => {
-  const { theme } = useContext(NavigationContext);
-
+const Layout = ({ theme }) => {
   return (
     <div
       className={`${
@@ -26,4 +24,10 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+const mapStateToProps = (state) => {
+  return {
+    theme: state.preferences.theme,
+  };
+};
+
+export default connect(mapStateToProps)(Layout);
