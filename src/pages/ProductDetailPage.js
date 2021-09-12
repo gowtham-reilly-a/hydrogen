@@ -55,7 +55,10 @@ class ProductDetailPage extends React.Component {
   render() {
     const product = this.props.product;
 
-    if (!product) return this.props.history.push(`/404`);
+    if (!product) {
+      this.props.history.push(`/404`);
+      return null;
+    }
 
     return (
       <MainWrapper>

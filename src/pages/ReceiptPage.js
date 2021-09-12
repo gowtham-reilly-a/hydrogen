@@ -27,7 +27,10 @@ class ReceiptPage extends React.Component {
 
   render() {
     const order = this.props.order;
-    if (!order) return this.props.history.push(`/404`);
+    if (!order) {
+      this.props.history.push(`/404`);
+      return null;
+    }
 
     return (
       <MainWrapper>
