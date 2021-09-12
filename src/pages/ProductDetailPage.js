@@ -73,11 +73,11 @@ class ProductDetailPage extends React.Component {
               "Updated on",
               new Date(product.updatedOn).toLocaleString()
             )}
-          {product.name && this.makeListItem("Name", product.name)}
-          {product.price && this.makeListItem("Amount", product.price)}
+          {this.makeListItem("Name", product.name)}
+          {this.makeListItem("Amount", product.price)}
           {product.brand && this.makeListItem("Brand", product.brand)}
           {product.supplier && this.makeListItem("Supplier", product.supplier)}
-          {product.stock && this.makeListItem("Stock", product.stock)}
+          {product.stock !== "" && this.makeListItem("Stock", product.stock)}
           {product.sku && this.makeListItem("SKU", product.sku)}
           {product.barcode && this.makeListItem("Barcode", product.barcode)}
         </ul>

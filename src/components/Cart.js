@@ -98,6 +98,11 @@ const Cart = ({ cart, removeFromCart, updateCart }) => {
                   {product?.discount && (
                     <p className="pl-2">Discount: {product.discount}</p>
                   )}
+                  {product.stock !== "" && product.stock > 1 ? (
+                    <p className="pl-2">Stock: {product.stock}</p>
+                  ) : (
+                    <p className="pl-2 text-skin-negative">Out of stock</p>
+                  )}
                 </div>
                 <Button
                   type="button"

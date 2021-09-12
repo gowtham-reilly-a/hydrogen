@@ -69,8 +69,8 @@ class ProductsPage extends React.Component {
             >
               <h2 className="text-xl font-bold">{product.name}</h2>
               <div className="flex gap-4">
-                {product.price && <p>Amount: {product.price}</p>}
-                {product.stock && <p>Stock: {product.stock}</p>}
+                <p>Amount: {product.price}</p>
+                {product.stock !== "" && <p>Stock: {product.stock}</p>}
                 {product.brand && <p>Brand: {product.brand}</p>}
                 {product.supplier && <p>Supplier: {product.supplier}</p>}
               </div>

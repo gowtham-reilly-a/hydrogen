@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import MainWrapper from "../components/MainWrapper";
 import BigButton from "../components/BigButton";
-import { clearCart, createOrder } from "../actions";
+import { clearCart, createOrder, updateProduct } from "../actions";
 import { v4 as uuidv4 } from "uuid";
 import NavigationContext from "../context/NavigationContext";
 import { IoArrowBackOutline } from "react-icons/io5";
@@ -45,6 +45,18 @@ class CheckoutPage extends React.Component {
       total: this.getTotalPrice(this.props.cart),
       paymentMethod: method,
       products: [...this.props.cart],
+    });
+
+    this.props.cart.forEach((item) => {
+      const updatedProduct = this.props.products.find(
+        (product) => item.id === product.id
+      );
+
+      if (updatedProduct.stock !== "")
+        return this.props.updateProduct({
+          ...updatedProduct,
+          stock: updatedProduct.stock - item.quantity,
+        });
     });
 
     this.props.clearCart();
@@ -110,10 +122,12 @@ class CheckoutPage extends React.Component {
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
+    products: Object.values(state.products),
   };
 };
 
 export default connect(mapStateToProps, {
   clearCart,
   createOrder,
+  updateProduct,
 })(CheckoutPage);
