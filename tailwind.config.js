@@ -2,11 +2,16 @@ const withOpacity = (variableName) => {
   return ({ opacityValue }) => `rgb(var(--${variableName}),${opacityValue})`;
 };
 
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Lato", ...defaultTheme.fontFamily.sans],
+      },
       backgroundColor: {
         skin: {
           base: withOpacity("background-base"),
