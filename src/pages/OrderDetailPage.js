@@ -44,11 +44,11 @@ class OrderDetailPage extends React.Component {
 
   render() {
     const order = this.props.order;
-    if (!order) return null;
+    if (!order) return this.props.history.push(`/404`);
 
     return (
       <MainWrapper>
-        <ul className="h-full flex flex-col justify-center gap-2 py-3 px-6 text-skin-base bg-skin-highlight bg-opacity-20 blur-xl rounded-lg max-w-lg mx-auto">
+        <ul className="h-full flex flex-col justify-center gap-2 p-6 text-skin-base bg-skin-highlight bg-opacity-20 blur-xl rounded-lg max-w-lg mx-auto">
           {order.orderNumber &&
             this.makeListItem("Order Number", order.orderNumber)}
           {order.createdOn &&

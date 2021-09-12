@@ -5,7 +5,7 @@ import MainWrapper from "../components/MainWrapper";
 import LiveSearch from "../components/LiveSearch";
 import Cart from "../components/Cart";
 import NavigationContext from "../context/NavigationContext";
-import { IoSearchOutline, IoBarcodeOutline } from "react-icons/io5";
+import { IoSearchOutline } from "react-icons/io5";
 
 class SalesPage extends React.Component {
   static contextType = NavigationContext;
@@ -21,15 +21,6 @@ class SalesPage extends React.Component {
           onClick={() => {
             this.context.setIsModalVisible(true);
             this.context.setModalType("search");
-          }}
-          className="cursor-pointer"
-        />,
-        <IoBarcodeOutline
-          size="1.5rem"
-          title="Scan barcode"
-          onClick={() => {
-            this.context.setIsModalVisible(true);
-            this.context.setModalType("barcode");
           }}
           className="cursor-pointer"
         />,
@@ -52,7 +43,7 @@ class SalesPage extends React.Component {
       <MainWrapper>
         <LiveSearch
           title="Search products"
-          placeholder="Eg: name or barcode"
+          placeholder="Eg: macbook"
           onClickHandler={this.onClickHandler}
           data={this.props.products}
           result="name"

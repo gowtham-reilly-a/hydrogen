@@ -7,6 +7,8 @@ import NavigationContext from "../context/NavigationContext";
 export default function IconLink({ icon, title, path }) {
   const { currentPage } = useContext(NavigationContext);
 
+  console.log(currentPage, path);
+
   return (
     <Link
       to={path}

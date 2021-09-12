@@ -86,7 +86,7 @@ function ProductForm({ brands, suppliers, onSubmit, product, title }) {
               formik={formik}
               placeholder="Search or create brand"
               options={brands}
-              className="text-skin-subdued"
+              className="text-black"
             />
 
             <CreatableSelect
@@ -95,7 +95,7 @@ function ProductForm({ brands, suppliers, onSubmit, product, title }) {
               formik={formik}
               placeholder="Search or create supplier"
               options={suppliers}
-              className="text-skin-subdued"
+              className="text-black"
             />
 
             <FormControl

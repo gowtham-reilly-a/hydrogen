@@ -9,13 +9,7 @@ import NavigationContext from "../context/NavigationContext";
 import BigButton from "./BigButton";
 import history from "../history";
 
-const Cart = ({
-  cart,
-
-  removeFromCart,
-
-  updateCart,
-}) => {
+const Cart = ({ cart, removeFromCart, updateCart }) => {
   const [inputUpdateVisiblity, setInputUpdateVisiblity] = useState(null);
   const { setIsModalVisible, setModalType } = useContext(NavigationContext);
 
@@ -30,7 +24,7 @@ const Cart = ({
     if (quantity && quantity > 0)
       updateCart({ ...updatedProduct, quantity: +quantity });
 
-    if (price)
+    if (price && price <= updatedProduct.price)
       updateCart({
         ...updatedProduct,
         price: +price,
@@ -59,7 +53,7 @@ const Cart = ({
     return (
       <div className="h-full flex justify-center items-center gap-2 text-skin-base">
         <FcInfo size="2rem" />
-        <p className="text-md">Search or scan barcode to add products here.</p>
+        <p className="text-md">Search available products and add here.</p>
       </div>
     );
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { IoCreateOutline, IoSearchOutline } from "react-icons/io5";
+import { FcInfo } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import NavigationContext from "../context/NavigationContext";
 import MainWrapper from "../components/MainWrapper";
@@ -40,13 +41,21 @@ class ProductsPage extends React.Component {
   render() {
     const products = this.props.products;
 
-    if (products.length === 0) return null;
+    if (products.length === 0)
+      return (
+        <div className="h-full flex justify-center items-center gap-2 bg-skin-base">
+          <FcInfo size="2rem" />
+          <p className="text-skin-base text-md">
+            Create new products to show up here
+          </p>
+        </div>
+      );
 
     return (
       <MainWrapper>
         <LiveSearch
           title="Search products"
-          placeholder="Eg: name or barcode"
+          placeholder="Eg: macbook"
           onClickHandler={this.onClickHandler}
           data={this.props.products}
           result="name"

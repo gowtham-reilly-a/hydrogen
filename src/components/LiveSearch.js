@@ -36,23 +36,27 @@ const LiveSearch = ({ data, onClickHandler, title, placeholder, result }) => {
 
       {searchTerm && (
         <ul className="w-full max-h-60 overflow-y-auto py-3 flex flex-col gap-1 bg-white text-blue-500 p-3 divide-y">
-          {filteredProducts?.map((item) => (
-            <li
-              key={item.id}
-              onClick={() => {
-                onClickHandler(item.id);
-                setFilteredProducts([]);
-                setSearchTerm("");
-              }}
-            >
-              <button
-                type="button"
-                className="flex flex-col gap-0 pt-1 cursor-pointer w-full"
+          {filteredProducts.length === 0 ? (
+            <p className="text-skin-negative">No results found</p>
+          ) : (
+            filteredProducts?.map((item) => (
+              <li
+                key={item.id}
+                onClick={() => {
+                  onClickHandler(item.id);
+                  setFilteredProducts([]);
+                  setSearchTerm("");
+                }}
               >
-                <h2 className="text-lg">{item[result]}</h2>
-              </button>
-            </li>
-          ))}
+                <button
+                  type="button"
+                  className="flex flex-col gap-0 pt-1 cursor-pointer w-full"
+                >
+                  <h2 className="text-lg">{item[result]}</h2>
+                </button>
+              </li>
+            ))
+          )}
         </ul>
       )}
     </Modal>

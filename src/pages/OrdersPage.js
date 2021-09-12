@@ -34,6 +34,21 @@ class OrdersPage extends React.Component {
     this.props.history.push(`/orders/${orderId}`);
   };
 
+  getDateString(date) {
+    const dateString = Math.round(
+      Math.abs((new Date() - new Date(date)) / (1000 * 60 * 60 * 24))
+    );
+
+    switch (dateString) {
+      case 0:
+        return `Today ${new Date(date).toLocaleTimeString()}`;
+      case 1:
+        return `Yesterday ${new Date(date).toLocaleTimeString()}`;
+      default:
+        return new Date(date).toLocaleDateString();
+    }
+  }
+
   render() {
     if (this.props.orders.length === 0)
       return (
@@ -54,7 +69,7 @@ class OrdersPage extends React.Component {
           onClickHandler={this.onClickHandler}
           result="orderNumber"
         />
-        <ul className="flex flex-col gap-3 max-w-lg mx-auto">
+        <ul className="flex flex-col gap-3 max-w-lg mx-auto overflow-auto">
           {this.props.orders.map((order) => {
             return (
               <li key={order.id}>
@@ -64,10 +79,12 @@ class OrdersPage extends React.Component {
                   onClick={() => this.onClickHandler(order.id)}
                 >
                   <h2>Order number: {order.orderNumber}</h2>
-                  <p>Total amount: {order.total}</p>
-                  <p>
-                    Completed on: {new Date(order.createdOn).toLocaleString()}
-                  </p>
+                  <div className="flex justify-between w-full">
+                    <p className="text-xl font-semibold">
+                      &#8377; {order.total}
+                    </p>
+                    <p>{this.getDateString(order.createdOn)}</p>
+                  </div>
                 </button>
               </li>
             );

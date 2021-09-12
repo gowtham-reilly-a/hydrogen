@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateProduct } from "../actions";
+import { updateProduct, deleteProduct, removeFromCart } from "../actions";
 import NavigationContext from "../context/NavigationContext";
-import { IoArrowBackOutline } from "react-icons/io5";
+import { IoArrowBackOutline, IoTrashOutline } from "react-icons/io5";
 import { VscEdit } from "react-icons/vsc";
 import MainWrapper from "../components/MainWrapper";
 
@@ -29,6 +29,16 @@ class ProductDetailPage extends React.Component {
           }}
           className="cursor-pointer"
         />,
+        <IoTrashOutline
+          size="1.5rem"
+          title="Delete product"
+          onClick={() => {
+            this.props.deleteProduct(this.props.product.id);
+            this.props.removeFromCart(this.props.product.id);
+            this.props.history.push(`/products`);
+          }}
+          className="cursor-pointer text-skin-negative"
+        />,
       ],
     });
   }
@@ -45,7 +55,7 @@ class ProductDetailPage extends React.Component {
   render() {
     const product = this.props.product;
 
-    if (!product) return null;
+    if (!product) return this.props.history.push(`/404`);
 
     return (
       <MainWrapper>
@@ -79,4 +89,8 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { updateProduct })(ProductDetailPage);
+export default connect(mapStateToProps, {
+  updateProduct,
+  deleteProduct,
+  removeFromCart,
+})(ProductDetailPage);

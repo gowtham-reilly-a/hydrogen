@@ -7,33 +7,28 @@ import { createStore, applyMiddleware, compose } from "redux";
 import reducers from "./reducers";
 import App from "./components/App";
 import _ from "lodash";
-const { ipcRenderer } = window.require("electron");
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-let persistedStorage;
+const persistStorage = localStorage.getItem("hydrogen");
 
-ipcRenderer.on("data:read", (e, data) => {
-  persistedStorage = JSON.parse(data);
+const store = createStore(
+  reducers,
+  persistStorage ? JSON.parse(persistStorage) : {},
+  composeEnhancers(applyMiddleware())
+);
 
-  const store = createStore(
-    reducers,
-    persistedStorage,
-    composeEnhancers(applyMiddleware())
-  );
+store.subscribe(
+  _.throttle(() => {
+    localStorage.setItem("hydrogen", JSON.stringify(store.getState()));
+  }, 5000)
+);
 
-  store.subscribe(
-    _.throttle(() => {
-      ipcRenderer.send("data:update", JSON.stringify(store.getState()));
-    }, 5000)
-  );
-
-  ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>,
-    document.querySelector("#root")
-  );
-});
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.querySelector("#root")
+);

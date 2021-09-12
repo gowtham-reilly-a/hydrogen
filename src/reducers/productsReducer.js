@@ -1,7 +1,10 @@
+import _ from "lodash";
+
 const initialState = {
   "119a6a0f-35d8-4b4f-a1d4-48a78d2f545d": {
+    createdOn: "2021-09-11T03:06:50.418Z",
     id: "119a6a0f-35d8-4b4f-a1d4-48a78d2f545d",
-    name: "Yippee",
+    name: "Yippee Noodles",
     brand: "Sunfeast",
     supplier: "Sree Ganga Foods",
     price: "20",
@@ -10,6 +13,8 @@ const initialState = {
     stock: 2,
   },
   "f20ea0b2-f9d3-4022-9da8-120dacd839c4": {
+    createdOn: "2021-09-12T09:06:50.418Z",
+    updatedOn: "2021-09-12T10:08:52.418Z",
     id: "f20ea0b2-f9d3-4022-9da8-120dacd839c4",
     name: "Macbook Pro",
     brand: "Apple",
@@ -20,6 +25,7 @@ const initialState = {
     stock: 12,
   },
   "e20ea0b2-f9d3-4022-9da8-120dacd839c5": {
+    createdOn: "2020-02-21T11:08:50.418Z",
     id: "e20ea0b2-f9d3-4022-9da8-120dacd839c5",
     name: "Thinkpad Laptop",
     brand: "Lenovo",
@@ -30,6 +36,7 @@ const initialState = {
     stock: 32,
   },
   "g20ea0b2-f9d3-4022-9da8-120dacd839c6": {
+    createdOn: "2021-05-01T12:09:39.418Z",
     id: "g20ea0b2-f9d3-4022-9da8-120dacd839c6",
     name: "Classmate Notebook",
     brand: "Classmate",
@@ -40,6 +47,7 @@ const initialState = {
     stock: 105,
   },
   "c20ea0b2-f9d3-4022-9da8-120dacd839c2": {
+    createdOn: "2021-09-12T09:06:50.418Z",
     id: "c20ea0b2-f9d3-4022-9da8-120dacd839c2",
     name: "LG TV 13 inches",
     brand: "LG",
@@ -50,6 +58,7 @@ const initialState = {
     stock: 7,
   },
   "b20ea0b2-f9d3-4022-9da8-120dacd839c6": {
+    createdOn: "2021-09-12T09:06:50.418Z",
     id: "b20ea0b2-f9d3-4022-9da8-120dacd839c6",
     name: "Table Mate",
     brand: "Tablemate",
@@ -67,6 +76,8 @@ const productsReducer = (state = initialState, action) => {
       return { [action.payload.id]: action.payload, ...state };
     case "UPDATE_PRODUCT":
       return { ...state, [action.payload.id]: action.payload };
+    case "DELETE_PRODUCT":
+      return _.omit(state, action.payload);
     default:
       return state;
   }
